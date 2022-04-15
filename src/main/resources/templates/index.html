@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Firmware Console</title>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+<body>
+
+<div class="content">
+
+    <div class="logoutBtn layui-btn-group">
+        <button type="button" class="layui-btn layui-btn-sm"
+                style="background:#393D49"
+                onclick="collapseAll()">
+            <i class="layui-icon">&#xe691;</i>
+        </button>
+        <a href="/logout">
+            <button type="submit"
+                    class="layui-btn layui-btn-danger layui-btn-sm"
+                    >logout</button>
+        </a>
+    </div>
+
+    <div class="fixedDiv layui-btn-container">
+
+    </div>
+
+    <form class="layui-form" action="#"
+          method="post" enctype="multipart/form-data"
+          th:action="@{/opt/upload}">
+        <div class="layui-form-item">
+            <div class="layui-inline formLine">
+                <div class="layui-input-inline" style="width: 200px;">
+                    <input  required  lay-verify="required"
+                            name="cni"
+                            type="text" placeholder="company name" autocomplete="off"
+                            class="layui-input">
+                </div>
+                <div class="layui-input-inline" style="width: 200px;">
+                    <input  required  lay-verify="required"
+                            name="pni"
+                            type="text" placeholder="project name" autocomplete="off"
+                            class="layui-input">
+                </div>
+                <div class="layui-input-inline" style="width: 200px;">
+                    <input  required  lay-verify="required"
+                            name="vi"
+                            type="text" placeholder="version" autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-input-inline" style="flex-grow:1;">
+                    <input
+                            style="width:100%;"
+                            required  lay-verify="required" name="file" type="file"/>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-form-item submitDiv">
+                <button type="submit"
+                        class="layui-btn layui-btn-sm">upload</button>
+            </div>
+        </div>
+    </form>
+
+    <!--    <div class="addFiled">-->
+    <!--        <form action="#" th:action="@{/opt/upload}"-->
+    <!--              method="post" enctype="multipart/form-data">-->
+    <!--            <input type="submit" value="upload"></input>-->
+    <!--            <input name="cni" type="text" placeholder="company name"/>-->
+    <!--            <input name="pni" type="text" placeholder="project name"/>-->
+    <!--            <input name="vi" type="text" placeholder="version"/>-->
+    <!--            <input name="file" type="file"/>-->
+    <!--        </form>-->
+    <!--    </div>-->
+
+    <!--  desc  -->
+    <div style="margin:10px 0;cursor:pointer;">
+        <span th:text="${'used : '+diskInfo.used+' MB'}"></span>
+        <span th:text="${'total : '+diskInfo.total+' MB'}"
+              style="margin-left:20px;"></span>
+    </div>
+
+
+    <!--  bar  -->
+    <div style="margin:10px 0;">
+        <div class="barBack">
+            <div class="bar" th:style="'width: '+${diskInfo.usedRate}+'%;'"></div>
+        </div>
+    </div>
+
+    <!--    main     -->
+    <!--    main     -->
+    <!--    main     -->
+    <div class="layui-collapse">
+
+        <div th:id="${companyItem.name}"
+             class="layui-colla-item companyBlock "
+             th:each="companyItem: ${companyBeans}">
+            <div class="companyNameDiv layui-colla-title">
+                    <span class="companyNameSpan"
+                          th:text="${companyItem.name}"></span>
+                <i style="cursor: pointer;color:#FF5722;font-size:18px;"
+                   th:data-companyName="${companyItem.name}"
+                   onclick="delCompany(event, this.getAttribute('data-companyName'))"
+                   class="layui-icon layui-icon-close-fill "></i>
+            </div>
+            <div class="layui-colla-content layui-show">
+                <span th:if="${companyItemStat.size}==0"> : no record</span>
+                <div th:id="${companyItem.name+ '_' + projItem.name}"
+                     th:if="${companyItemStat.size}!=0"
+                     style="margin-left:20px;" th:each="projItem: ${companyItem.projBeans}">
+                    <span th:text="${projItem.name}"
+                          class="projNameSpan"></span> :
+                    [version : <span th:text="${projItem.deviceBean.version}"></span>]
+                    [download : <a th:href="${projItem.deviceBean.location}"
+                                   th:text="${projItem.deviceBean.location}"></a>]
+                    [<a href="javascript:void(0)"
+                        th:data-projectName="${projItem.name}"
+                        th:data-companyName="${companyItem.name}"
+                        onclick="delProject(this.getAttribute('data-companyName'),
+                        this.getAttribute('data-projectName'))">delete</a>]
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+
+<script src="/layui/layui.all.js"></script>
+<script th:src="@{/common/axios.min.js}"></script>
+
+<script src="/js/index.js"></script>
+
+
+</html>

@@ -1,0 +1,64 @@
+
+server:
+  port: 8080
+
+# current firmware version
+firmwareVersion: 1.1.0
+
+#　default empty filename
+emptyFileName: data.empty
+
+# count concurrent
+countConcurrent: 0
+
+# max concurrent
+maxConcurrent: 10
+
+# var path
+basePath: /var/firmware/
+
+# firmware file path
+firmwareFilePath: /var/firmware/fms/
+
+# firmware path
+firmwarePath: /files/
+
+# version info file name
+versionInfoFileName: versionInfo.yml
+
+# 开发阶段，建议关闭thymeleaf的缓存
+#spring.thymeleaf.cache: false
+#spring.thymeleaf.mode: LEGACYHTML5
+
+# file size limit
+spring:
+  thymeleaf:
+    cache: false
+    mode: LEGACYHTML5
+#    prefix: classpath:/templates/
+#    suffix: .html
+    content-type: text/html
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 307200KB
+      max-request-size: 307200KB
+
+# flow limitation configuration
+configCapacity: 5
+configRate: 5
+
+# login username
+# login password
+loginUsername: jinju321
+loginPassword: JinJu123
+
+# zookeeper
+zkHost: 3.133.162.167:2181
+
+# config version
+configVersion: 0
+
+
+
+

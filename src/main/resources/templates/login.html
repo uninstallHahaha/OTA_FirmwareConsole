@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+
+    <link type="text/css" rel="stylesheet" href="/layui/css/layui.css">
+    <link type="text/css" rel="stylesheet" href="/css/login.css">
+
+    <script type="text/javascript" th:src="@{/layui/layui.js}"></script>
+    <script type="text/javascript" th:src="@{/common/axios.min.js}"></script>
+
+    <script type="text/javascript" th:src="@{/js/login.js}"></script>
+</head>
+<body>
+
+    <div>
+
+        <div class="iconDiv">
+            <i class="layui-icon layui-icon-component"
+               style="font-size: 40px;color:#666;"></i>
+        </div>
+
+        <div class="title">
+            <h5>Sign in to Console</h5>
+        </div>
+
+        <div class="formDiv">
+            <form class="layui-form" action="#">
+                <div>
+                    <label class="form-label">Username</label>
+                </div>
+                <div class="layui-form-item">
+                    <div>
+                        <input
+                                type="text" name="username" required  lay-verify="required"
+                               placeholder="Please enter username" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div>
+                    <label class="form-label">Password</label>
+                </div>
+                <div class="layui-form-item">
+                    <div>
+                        <input
+                                type="password" name="password" required lay-verify="required"
+                               placeholder="Please enter password" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+<!--                <div class="layui-form-item">-->
+<!--                    <div>-->
+<!--                        <input type="checkbox" name="settings[remember]" title="remember" checked>-->
+<!--                        <input type="checkbox" name="settings[auto]" title="auto login" checked>-->
+<!--                    </div>-->
+<!--                </div>-->
+                <div class="layui-form-item">
+                    <div>
+                        <button class="layui-btn login-btn" lay-submit lay-filter="formDemo">Login</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+
+
+
+
+
+</html>
